@@ -15,8 +15,8 @@ class CreateDenemesTable extends Migration
     {
         Schema::create('denemes', function (Blueprint $table) {
             $table->id();
-            $table->string('isim');
-            $table->string('soyad');
+            $table->string('name');
+            $table->string('surname');
             $table->timestamps();
         });
     }

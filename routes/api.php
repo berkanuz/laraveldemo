@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 /*Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });*/
+Route::post('/deneme/', 'App\Http\Controllers\DenemeController@CreateDeneme');
 
-Route::get('/deneme/{isim}', 'App\Http\Controllers\DenemeController@getDeneme');
-Route::post('/deneme/{isim}', 'App\Http\Controllers\DenemeController@updateDeneme');
+
+Route::get('/deneme/{name}', 'App\Http\Controllers\DenemeController@getDeneme');
+Route::post('/deneme/{name}', 'App\Http\Controllers\DenemeController@updateDeneme');

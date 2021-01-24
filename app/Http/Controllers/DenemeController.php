@@ -7,29 +7,52 @@ use Illuminate\Http\Request;
 class DenemeController extends BaseController
 {
 
-    public function getDeneme(Request $request, $isim){
-    	//dd($isim);
-    	//$isim2 = $request->route('isim');
+    public function CreateDeneme(Request $request){
+    	$name = $request->get('name');
+    	$surname = $request -> get('surname');
+
+    	if(!isset($name)) {
+    		return response()->json('name is not found',400);
+    	}
+    	elseif (!isset($surname)) {
+    		return response()->json('surname is not found',400);
+    	}
+
+       	$deneme = new Deneme;
+    	$deneme->name = $name;
+    	$deneme->surname = $surname;
+    	$deneme->save();
+
+    	$fatchedDeneme = Deneme::where('id',$deneme->id) -> first();
+
+
+    	return response()->json($fatchedDeneme,200);
+
+    }
+
+    public function getDeneme(Request $request, $name){
+    	//dd($name);
+    	//$name2 = $request->route('name');
     	$size = $request->get('size');
     	//dd($size);
-    	$deneme = Deneme::where('isim', $isim)->take($size)->get();
+    	$deneme = Deneme::where('name', $name)->take($size)->get();
     	return response()->json($deneme,200);
     }	
 
-    public function updateDeneme(Request $request, $isim)
+    public function updateDeneme(Request $request, $name)
     {
-    	$yeni_isim = $request->get('yeni_isim');
-    	//dd($yeni_isim);
-    	$deneme = Deneme::where('isim',$isim) -> first();
-//dd($isim);
-    	$deneme -> isim = $yeni_isim;
+    	$new_name = $request->get('new_name');
+    	//dd($new_name);
+    	$deneme = Deneme::where('name',$name) -> first();
+//dd($name);
+    	$deneme -> name = $new_name;
     	$deneme->save();
 
 
     	return response()->json($deneme,200);
 
 
-    	//dd($isim);
+    	//dd($name);
     }
 
 }
